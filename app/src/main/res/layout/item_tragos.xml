@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imTrago"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_launcher_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTitutlo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Daikiri"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Daikiri sabor dulce con un toque de azucar para endulzar el corazon y mente"
+            android:ellipsize="end"
+            android:maxLines="2"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>
