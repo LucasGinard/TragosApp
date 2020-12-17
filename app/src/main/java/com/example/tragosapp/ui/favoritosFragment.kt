@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
 
+
     private val viewModel by viewModels<mainViewModel> { vmFactory(RepoImplement(dataSource(
         appDataBase.getDataBase(requireActivity().applicationContext)))) }
 
