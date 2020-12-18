@@ -10,17 +10,5 @@ import com.example.tragosapp.domain.tragoDao
 
 @Database(entities = arrayOf(TragosEntity::class),version = 1)
 abstract class appDataBase: RoomDatabase() {
-
     abstract fun tragoDao():tragoDao
-    companion object{
-        private var INSTANCE: appDataBase? = null
-        fun getDataBase(context: Context):appDataBase{
-            INSTANCE = INSTANCE?: Room.databaseBuilder(context.applicationContext,appDataBase::class.java,"table_tragos").build()
-            return INSTANCE!!
-        }
-
-        fun destroyIntance(){
-            INSTANCE = null
-        }
-    }
 }

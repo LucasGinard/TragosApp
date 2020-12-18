@@ -1,11 +1,11 @@
 package com.example.tragosapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,17 +19,19 @@ import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
 import com.example.tragosapp.domain.RepoImplement
+import com.example.tragosapp.domain.tragoDao
 import com.example.tragosapp.ui.viewmodel.mainViewModel
-import com.example.tragosapp.ui.viewmodel.vmFactory
 import com.example.tragosapp.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favoritos.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
 
 
-    private val viewModel by viewModels<mainViewModel> { vmFactory(RepoImplement(dataSource(
-        appDataBase.getDataBase(requireActivity().applicationContext)))) }
+    private val viewModel by activityViewModels<mainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

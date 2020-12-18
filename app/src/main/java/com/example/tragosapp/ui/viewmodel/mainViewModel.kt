@@ -1,7 +1,7 @@
 package com.example.tragosapp.ui.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
 import com.example.tragosapp.domain.Repositorio
 import com.example.tragosapp.vo.Resource
@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class mainViewModel(private val repositorio: Repositorio):ViewModel(){
+class mainViewModel @ViewModelInject constructor(private val repositorio: Repositorio):ViewModel(){
 
     private val tragosdata = MutableLiveData<String>()
 

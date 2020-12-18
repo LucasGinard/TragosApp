@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.tragosapp.R
 import com.example.tragosapp.appDataBase
@@ -14,15 +15,15 @@ import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
 import com.example.tragosapp.domain.RepoImplement
 import com.example.tragosapp.ui.viewmodel.mainViewModel
-import com.example.tragosapp.ui.viewmodel.vmFactory
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detalles_fragment.*
 
+@AndroidEntryPoint
 class detalles_fragment : Fragment() {
 
     private lateinit var trago: Trago
-    private val viewModel by viewModels<mainViewModel> { vmFactory(RepoImplement(dataSource(
-        appDataBase.getDataBase(requireActivity().applicationContext)))) }
+    private val viewModel by activityViewModels<mainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

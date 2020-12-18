@@ -1,11 +1,11 @@
 package com.example.tragosapp.domain
 
-import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
 import com.example.tragosapp.vo.Resource
+import javax.inject.Inject
 
-class RepoImplement(private val dataSource: dataSourceRepo):Repositorio {
+class RepoImplement @Inject constructor(private val dataSource: dataSourceRepo):Repositorio {
     override suspend fun getTragosList(tragoNombre:String): Resource<List<Trago>> {
         return dataSource.getTragobyNombre(tragoNombre)
     }

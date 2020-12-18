@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -18,16 +19,14 @@ import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.domain.RepoImplement
 import com.example.tragosapp.ui.viewmodel.mainViewModel
-import com.example.tragosapp.ui.viewmodel.vmFactory
 import com.example.tragosapp.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 
+@AndroidEntryPoint
 class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
 
-    private var tragosEntity = null
-
-    private val viewModel by viewModels<mainViewModel> { vmFactory(RepoImplement(dataSource(
-        appDataBase.getDataBase(requireActivity().applicationContext)))) }
+    private val viewModel by activityViewModels<mainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
