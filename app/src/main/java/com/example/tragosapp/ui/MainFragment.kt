@@ -28,6 +28,7 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
 
     private val viewModel by activityViewModels<mainViewModel>()
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
