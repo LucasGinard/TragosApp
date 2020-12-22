@@ -9,5 +9,4 @@ interface Repositorio {
     suspend fun getTragosFav():Resource<List<TragosEntity>>
     suspend fun insertTrago(trago: TragosEntity)
     suspend fun deleteTrago(trago: TragosEntity)
-
 }
