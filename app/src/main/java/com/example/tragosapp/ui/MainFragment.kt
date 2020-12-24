@@ -1,27 +1,28 @@
 package com.example.tragosapp.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tragosapp.R
-import com.example.tragosapp.appDataBase
-import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
-import com.example.tragosapp.domain.RepoImplement
 import com.example.tragosapp.ui.viewmodel.mainViewModel
 import com.example.tragosapp.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
@@ -45,24 +46,57 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
         recyclerviewTragos()
         setupBuscador()
         setupObserver()
+        UI()
         btnFavoritosMain.setOnClickListener {
             findNavController().navigate(R.id.favoritosFragment)
         }
     }
+        
+    private fun UI(){
+        var sharedPreferences = activity?.getSharedPreferences("night", 0)
+        val booleanValue: Boolean = sharedPreferences!!.getBoolean("night_mode", true)
+        if (booleanValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            modeTheme.isChecked = true
+            linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_dark))
+        }
+
+        modeTheme.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                modeTheme.isChecked = true
+                linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_dark))
+                val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                editor.putBoolean("night_mode", true)
+                editor.commit()
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                modeTheme.isChecked = false
+                linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_white))
+                val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                editor.putBoolean("night_mode", false)
+                editor.commit()
+            }
+        })
+    }
 
     private fun setupObserver() {
         viewModel.fetchTragosList.observe(viewLifecycleOwner, Observer { result ->
-            when(result){
+            when (result) {
                 is Resource.Loading -> {
                     pbCargar.visibility = View.VISIBLE
                 }
                 is Resource.Sucess -> {
                     pbCargar.visibility = View.GONE
-                    rvTragos.adapter = mainAdapter(requireContext(),result.data,this)
+                    rvTragos.adapter = mainAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure -> {
                     pbCargar.visibility = View.GONE
-                    Toast.makeText(requireContext(),"Error Compruebe su Conexión ${result.exception}",Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error Compruebe su Conexión ${result.exception}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         })
@@ -70,13 +104,20 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
 
     private fun recyclerviewTragos(){
         rvTragos.layoutManager = LinearLayoutManager(requireContext())
-        rvTragos.addItemDecoration(DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL))
+        rvTragos.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
     private fun setupBuscador(){
-        svBuscador.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+        svBuscador.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(pedi: String?): Boolean {
-                viewModel.setTrago(pedi!!)
+                if (pedi != null) {
+                    viewModel.setTrago(pedi)
+                }
                 return false
             }
 
@@ -89,7 +130,7 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
 
     override fun onTragoClick(trago: Trago) {
         val bundle = Bundle()
-        bundle.putParcelable("trago",trago)
-        findNavController().navigate(R.id.action_mainFragment_to_detalles_fragment,bundle)
+        bundle.putParcelable("trago", trago)
+        findNavController().navigate(R.id.action_mainFragment_to_detalles_fragment, bundle)
     }
 }
