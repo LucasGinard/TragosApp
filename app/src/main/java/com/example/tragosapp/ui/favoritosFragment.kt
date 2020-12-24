@@ -63,6 +63,7 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
                     val swipeHandler = object : swipedDeleteTrago(requireContext()) {
                         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                             viewModel.deleteTragos(adapter.getTragoPo(viewHolder.adapterPosition))
+                            setupObserver()
                             adapter.notifyItemRemoved(viewHolder.adapterPosition)
                         }
                     }
