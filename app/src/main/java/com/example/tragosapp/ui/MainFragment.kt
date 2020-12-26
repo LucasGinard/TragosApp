@@ -1,15 +1,11 @@
 package com.example.tragosapp.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -46,39 +42,12 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
         recyclerviewTragos()
         setupBuscador()
         setupObserver()
-        UI()
         btnFavoritosMain.setOnClickListener {
             findNavController().navigate(R.id.favoritosFragment)
         }
     }
         
-    private fun UI(){
-        var sharedPreferences = activity?.getSharedPreferences("night", 0)
-        val booleanValue: Boolean = sharedPreferences!!.getBoolean("night_mode", true)
-        if (booleanValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            modeTheme.isChecked = true
-            linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_dark))
-        }
 
-        modeTheme.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                modeTheme.isChecked = true
-                linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_dark))
-                val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                editor.putBoolean("night_mode", true)
-                editor.commit()
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                modeTheme.isChecked = false
-                linear.background = (ContextCompat.getDrawable(requireContext(),R.drawable.background_white))
-                val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                editor.putBoolean("night_mode", false)
-                editor.commit()
-            }
-        })
-    }
 
     private fun setupObserver() {
         viewModel.fetchTragosList.observe(viewLifecycleOwner, Observer { result ->

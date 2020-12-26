@@ -5,24 +5,17 @@
     android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_white"
+    android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.MainFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnFavoritosMain"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@drawable/ic_baseline_star_24" />
-
-    <Switch
-        android:id="@+id/modeTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Switch" />
 
     <SearchView
         android:id="@+id/svBuscador"

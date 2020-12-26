@@ -3,7 +3,7 @@
     <color name="colorPrimary">#8C2808</color>
     <color name="colorPrimaryDark">#491302</color>
     <color name="colorAccent">#5C3C30</color>
-    
+    <color name="white">#ffffff</color>
     <color name="textColor">#000000</color>
 
 </resources>
