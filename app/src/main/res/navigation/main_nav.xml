@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.tragosapp.ui.MainFragment"
-        android:label="Tragos"
+        android:label="TragosApp"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detalles_fragment"
@@ -23,7 +23,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/detalles_fragment"

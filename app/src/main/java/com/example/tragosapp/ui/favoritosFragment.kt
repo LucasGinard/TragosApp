@@ -49,6 +49,7 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
         super.onViewCreated(view, savedInstanceState)
         recyclerviewTragos()
         setupObserver()
+
     }
 
     private fun setupObserver(){

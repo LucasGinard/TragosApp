@@ -21,30 +21,17 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarCustom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/switchLight"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title="TragosApp" />
-
-            <ImageView
-                android:id="@+id/iconTrago"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/toolbarCustom"
-                app:layout_constraintHorizontal_bias="0.56"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.72"
-                app:srcCompat="@drawable/icon">
-
-            </ImageView>
+                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchLight"
@@ -52,7 +39,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.SwitchCompat>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
