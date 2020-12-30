@@ -14,19 +14,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tragosapp.R
-import com.example.tragosapp.appDataBase
-import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
-import com.example.tragosapp.domain.RepoImplement
-import com.example.tragosapp.domain.tragoDao
 import com.example.tragosapp.ui.viewmodel.mainViewModel
 import com.example.tragosapp.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favoritos.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import okhttp3.internal.notify
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {

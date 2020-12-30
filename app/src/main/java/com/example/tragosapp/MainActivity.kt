@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbarCustom)
+        supportActionBar?.setIcon(R.drawable.icon)
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navControlador = navHostFragment.navController
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         var sharedPreferences = this?.getSharedPreferences("night", 0)
         switchLight.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+                supportActionBar?.setIcon(R.drawable.iconwhite);
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 switchLight.isChecked = true
                 nav_host_fragment.background = (ContextCompat.getDrawable(
@@ -47,7 +50,9 @@ class MainActivity : AppCompatActivity() {
                 val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
                 editor.putBoolean("night_mode", true)
                 editor.commit()
+                ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_true))
             } else {
+                supportActionBar?.setIcon(R.drawable.icon)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 switchLight.isChecked = false
                 nav_host_fragment.background = (ContextCompat.getDrawable(
@@ -57,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
                 editor.putBoolean("night_mode", false)
                 editor.commit()
+                ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_false))
             }
         })
     }
