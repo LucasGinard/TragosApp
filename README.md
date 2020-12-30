@@ -13,7 +13,6 @@
 * [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android?hl=es-419) - v1.0.0-alpha02
 * [Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started) - v2.3.1
 
-running app
 
 ## App Corriendo 	🏃 (Running app)
 
