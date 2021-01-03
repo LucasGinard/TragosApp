@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tragosapp.R
 import com.example.tragosapp.data.model.Trago
+import com.example.tragosapp.databinding.FragmentMainBinding
 import com.example.tragosapp.ui.viewmodel.mainViewModel
 import com.example.tragosapp.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
 
 
 @AndroidEntryPoint
 class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
 
     private val viewModel by activityViewModels<mainViewModel>()
+    private var _binding:FragmentMainBinding ?= null
+    private val binding get() = _binding!!
 
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -34,7 +35,8 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater,container,false)
+        return  binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
         recyclerviewTragos()
         setupBuscador()
         setupObserver()
-        btnFavoritosMain.setOnClickListener {
+        binding.btnFavoritosMain.setOnClickListener {
             findNavController().navigate(R.id.favoritosFragment)
         }
     }
@@ -53,14 +55,14 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
         viewModel.fetchTragosList.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Loading -> {
-                    pbCargar.visibility = View.VISIBLE
+                    binding.pbCargar.visibility = View.VISIBLE
                 }
                 is Resource.Sucess -> {
-                    pbCargar.visibility = View.GONE
-                    rvTragos.adapter = mainAdapter(requireContext(), result.data, this)
+                    binding.pbCargar.visibility = View.GONE
+                    binding.rvTragos.adapter = mainAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure -> {
-                    pbCargar.visibility = View.GONE
+                    binding.pbCargar.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
                         "Error Compruebe su Conexión ${result.exception}",
@@ -72,8 +74,8 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
     }
 
     private fun recyclerviewTragos(){
-        rvTragos.layoutManager = LinearLayoutManager(requireContext())
-        rvTragos.addItemDecoration(
+        binding.rvTragos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvTragos.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
                 DividerItemDecoration.VERTICAL
@@ -82,7 +84,7 @@ class MainFragment : Fragment(),mainAdapter.onTragoClickListenerFav {
     }
 
     private fun setupBuscador(){
-        svBuscador.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.svBuscador.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(pedi: String?): Boolean {
                 if (pedi != null) {
                     viewModel.setTrago(pedi)

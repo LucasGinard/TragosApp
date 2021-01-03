@@ -7,23 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.example.tragosapp.R
-import com.example.tragosapp.appDataBase
-import com.example.tragosapp.data.dataSource
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
-import com.example.tragosapp.domain.RepoImplement
+import com.example.tragosapp.databinding.FragmentDetallesFragmentBinding
 import com.example.tragosapp.ui.viewmodel.mainViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_detalles_fragment.*
 
 @AndroidEntryPoint
 class detalles_fragment : Fragment() {
 
     private lateinit var trago: Trago
     private val viewModel by activityViewModels<mainViewModel>()
+    private var _binding:FragmentDetallesFragmentBinding ?= null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +33,17 @@ class detalles_fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalles_fragment, container, false)
+        _binding = FragmentDetallesFragmentBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Picasso.get().load(trago.imagen).resize(400,250).into(ivTragoDetalle)
-        tvTragoTitulo.text = trago.nombre
-        tvTragoDescrip.text = trago.descripcion
+        Picasso.get().load(trago.imagen).resize(400,250).into(binding.ivTragoDetalle)
+        binding.tvTragoTitulo.text = trago.nombre
+        binding.tvTragoDescrip.text = trago.descripcion
 
-        btnFavoritos.setOnClickListener {
+        binding.btnFavoritos.setOnClickListener {
             viewModel.saveTragoFav(TragosEntity(trago.tragoId,trago.imagen,trago.nombre,trago.descripcion))
             Toast.makeText(requireContext(),"Se guardo tu Trago como Favorito",Toast.LENGTH_LONG).show()
         }

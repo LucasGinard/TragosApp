@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tragosapp.R
 import com.example.tragosapp.data.model.Trago
 import com.example.tragosapp.data.model.TragosEntity
+import com.example.tragosapp.databinding.FragmentFavoritosBinding
 import com.example.tragosapp.ui.viewmodel.mainViewModel
 import com.example.tragosapp.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favoritos.*
 
 
 @AndroidEntryPoint
@@ -27,6 +26,8 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
 
 
     private val viewModel by activityViewModels<mainViewModel>()
+    private var _binding:FragmentFavoritosBinding ?= null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,8 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favoritos, container, false)
+        _binding = FragmentFavoritosBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +56,7 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
                 }
                 is Resource.Sucess ->{
                     var adapter = favAdapter(requireContext(),result.data,this)
-                    rvFavoritos.adapter = adapter
+                    binding.rvFavoritos.adapter = adapter
                     val swipeHandler = object : swipedDeleteTrago(requireContext()) {
                         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                             viewModel.deleteTragos(adapter.getTragoPo(viewHolder.adapterPosition))
@@ -63,7 +65,7 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
                         }
                     }
                     val itemTouchHelper = ItemTouchHelper(swipeHandler)
-                    itemTouchHelper.attachToRecyclerView(rvFavoritos)
+                    itemTouchHelper.attachToRecyclerView(binding.rvFavoritos)
                 }
                 is Resource.Failure ->{
 
@@ -73,8 +75,8 @@ class favoritosFragment : Fragment(),favAdapter.onTragoClickListener2 {
     }
 
     private fun recyclerviewTragos(){
-        rvFavoritos.layoutManager = LinearLayoutManager(requireContext())
-        rvFavoritos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvFavoritos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFavoritos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun onTragoClick(trago: TragosEntity) {

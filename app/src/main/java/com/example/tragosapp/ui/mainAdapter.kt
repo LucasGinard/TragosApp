@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tragosapp.R
 import com.example.tragosapp.base.baseViewHolder
 import com.example.tragosapp.data.model.Trago
+import com.example.tragosapp.databinding.ItemTragosBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_tragos.view.*
 
 class mainAdapter(private val context:Context,private val tragosList: List<Trago>,private val itemClickListener:onTragoClickListenerFav):RecyclerView.Adapter<baseViewHolder<*>>(){
 
@@ -33,10 +33,11 @@ class mainAdapter(private val context:Context,private val tragosList: List<Trago
 
 
     inner class mainViewHolder(itemView:View):baseViewHolder<Trago>(itemView){
+        val binding = ItemTragosBinding.bind(itemView)
         override fun bind(item: Trago, position: Int) {
-            Picasso.get().load(item.imagen).into(itemView.imTrago)
-            itemView.tvTitutlo.text = item.nombre
-            itemView.tvDescripcion.text = item.descripcion
+            Picasso.get().load(item.imagen).into(binding.imTrago)
+            binding.tvTitutlo.text = item.nombre
+            binding.tvDescripcion.text = item.descripcion
             itemView.setOnClickListener {itemClickListener.onTragoClick(item)}
         }
     }

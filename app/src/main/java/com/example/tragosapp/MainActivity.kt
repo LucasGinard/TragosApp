@@ -9,18 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.tragosapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navControlador:NavController
+    private lateinit var viewBinding:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbarCustom)
+        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+        setSupportActionBar(viewBinding.toolbarCustom)
         supportActionBar?.setIcon(R.drawable.icon)
 
 
@@ -38,31 +40,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun UI(){
         var sharedPreferences = this?.getSharedPreferences("night", 0)
-        switchLight.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        viewBinding.switchLight.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 supportActionBar?.setIcon(R.drawable.iconwhite);
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                switchLight.isChecked = true
-                nav_host_fragment.background = (ContextCompat.getDrawable(
+                viewBinding.switchLight.isChecked = true
+                viewBinding.navHostFragment.background = (ContextCompat.getDrawable(
                     this,
                     R.drawable.background_dark
                 ))
                 val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
                 editor.putBoolean("night_mode", true)
                 editor.commit()
-                ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_true))
+                viewBinding.ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_true))
             } else {
                 supportActionBar?.setIcon(R.drawable.icon)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                switchLight.isChecked = false
-                nav_host_fragment.background = (ContextCompat.getDrawable(
+                viewBinding.switchLight.isChecked = false
+                viewBinding.navHostFragment.background = (ContextCompat.getDrawable(
                     this,
                     R.drawable.background_white
                 ))
                 val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
                 editor.putBoolean("night_mode", false)
                 editor.commit()
-                ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_false))
+                viewBinding.ivSwitch.setImageDrawable(getDrawable(R.drawable.switch_light_false))
             }
         })
     }

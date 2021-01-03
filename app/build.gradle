@@ -22,6 +22,11 @@ android {
                 arguments["room.incremental"] = "true"
             }
         }
+
+        buildFeatures{
+            viewBinding = true
+        }
+
     }
 
     buildTypes {
