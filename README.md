@@ -1,9 +1,10 @@
-# TragosApp
+# TragosApp🍸
 🍹 TheCockTailDB Api: https://www.thecocktaildb.com/api.php
 
 ## Construido con 🛠️ (Build in)
 * [AndroidStudio](https://developer.android.com/studio) - v4.1.1
-* [Kotlin](https://kotlinlang.org) - Lenguaje
+* [Kotlin](https://kotlinlang.org) - Lenguaje/language
+* [MVVM](https://es.wikipedia.org/wiki/Modelo–vista–modelo_de_vista) - Arquitectura/Architecture 👷
 
 ## Librerias Utilizadas 📚 (Libraries used)
 * [RetroFit](https://square.github.io/retrofit/) - v2.7.1
