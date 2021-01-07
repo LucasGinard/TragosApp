@@ -2,7 +2,7 @@
 🍹 TheCockTailDB Api: https://www.thecocktaildb.com/api.php
 
 ## Construido con 🛠️ (Build in)
-* [AndroidStudio](https://developer.android.com/studio) - v4.0.1
+* [AndroidStudio](https://developer.android.com/studio) - v4.1.1
 * [Kotlin](https://kotlinlang.org) - Lenguaje
 
 ## Librerias Utilizadas 📚 (Libraries used)
