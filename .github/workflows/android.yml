@@ -24,3 +24,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+      
+    - name: build release 
+      run: ./gradlew assembleRelease
+    - name: list files
+      run: ls -lrt app/build/outputs/apk/release
